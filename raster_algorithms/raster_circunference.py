@@ -16,17 +16,19 @@ def draw_symetric_point(center: Point, offset: Point, data):
     data[center.y + x, center.x - y] = RED
 
 def alg_1(r: int, center: Point):
-    new_d = 5/4 - r
+    d = 5/4 - r
+    h = d - 1/4
     data = create_canvas()
     y = r
 
     for x in range(0, ceil(r / sqrt(2))):
         draw_symetric_point(center, Point(x, y), data)
-        if new_d < 0:
-            new_d += 2*x + 3
+        # h < -1/4, but they are integers. So < 0 will suffice
+        if h < 0:
+            h += 2*x + 3
         else:
             y -= 1
-            new_d += 2*x - 2*y + 5
+            h += 2*x - 2*y + 5
 
     img = Image.fromarray(data)
     img.save("circunference/temp3.png")
